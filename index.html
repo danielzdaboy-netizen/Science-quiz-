@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8th Grade Life Science ¨C Insanely Hard Quiz (Ch 4.1¨C4.5)</title>
+
+    <style>
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ RESET & BASE ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #0b0e14;
+            color: #e8edf5;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .quiz-container {
+            max-width: 900px;
+            width: 100%;
+            background: #151e2a;
+            border-radius: 28px;
+            padding: 2rem 2rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 1px solid #2a3748;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #f0c27f, #fc5c7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .subhead {
+            color: #9bb0c9;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #263340;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .subhead .badge {
+            background: #1f2d3e;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            color: #b6cee8;
+            border: 1px solid #31445a;
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ QUESTIONS ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        .question-block {
+            background: #1a2533;
+            border-radius: 18px;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 1.8rem;
+            border-left: 5px solid #3d5a7a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.2s;
+        }
+
+        .question-block.correct-highlight {
+            border-left-color: #3bc98a;
+        }
+
+        .question-block.wrong-highlight {
+            border-left-color: #f2656b;
+        }
+
+        .q-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .q-number {
+            font-weight: 700;
+            color: #fcb77c;
+            font-size: 1.05rem;
+            background: #1f3144;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            border: 1px solid #3d5a7a;
+        }
+
+        .q-type {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: #2f4057;
+            padding: 0.15rem 0.9rem;
+            border-radius: 30px;
+            color: #b8d0e9;
+        }
+
+        .q-text {
+            font-size: 1.08rem;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+            font-weight: 400;
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ OPTIONS ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #1f2d3e;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            border: 1px solid #2d4057;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            font-size: 0.98rem;
+        }
+
+        .option:hover {
+            background: #26384f;
+            border-color: #4a6b8f;
+        }
+
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            accent-color: #fc8b5c;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            padding: 0.1rem 0;
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ TRUE / FALSE ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        .tf-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tf-group .option {
+            min-width: 100px;
+            flex: 0 1 auto;
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ SHORT ANSWER ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        .short-answer textarea {
+            width: 100%;
+            min-height: 80px;
+            background: #0f1823;
+            border: 1px solid #2d4057;
+            border-radius: 12px;
+            color: #e8edf5;
+            padding: 0.8rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        .short-answer textarea:focus {
+            border-color: #fc8b5c;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(252, 139, 92, 0.15);
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ BUTTONS ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            border-top: 1px solid #263340;
+            padding-top: 2rem;
+        }
+
+        .btn {
+            background: #2a3f58;
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            border: 1px solid #3d5a7a;
+            letter-spacing: 0.02em;
+        }
+
+        .btn:hover {
+            background: #3a5678;
+            transform: scale(1.02);
+        }
+
+        .btn-primary {
+            background: #d97a4a;
+            border-color: #e89464;
+        }
+
+        .btn-primary:hover {
+            background: #e88b5a;
+        }
+
+        .btn-secondary {
+            background: #2f4057;
+            border-color: #4a6b8f;
+        }
+
+        .btn-secondary:hover {
+            background: #3d5a7a;
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ RESULTS ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        .results-box {
+            background: #0f1823;
+            border-radius: 18px;
+            padding: 1.8rem 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            border: 1px solid #2d4057;
+            display: none;
+        }
+
+        .results-box.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .results-box .score {
+            font-size: 2.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f0c27f, #fc5c7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-box .detail {
+            color: #b0c8e0;
+            margin-top: 0.5rem;
+        }
+
+        .results-box .detail span {
+            color: #e8edf5;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ RESPONSIVE ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        @media (max-width: 650px) {
+            .quiz-container {
+                padding: 1.2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .question-block {
+                padding: 1.2rem 1.2rem;
+            }
+
+            .q-text {
+                font-size: 0.98rem;
+            }
+
+            .option {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .tf-group {
+                gap: 0.8rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .subhead {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* ©¤©¤©¤©¤©¤©¤©¤©¤©¤ SCROLLBAR (optional) ©¤©¤©¤©¤©¤©¤©¤©¤©¤ */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1823;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3d5a7a;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="quiz-container" id="quizApp">
+
+        <h1>?? Insanely Hard ¡¤ 8th Grade</h1>
+        <div class="subhead">
+            <span>Chapters 4.1 ¨C 4.5 ¡¤ Life Science</span>
+            <span class="badge">? 20 questions ¡¤ no time limit</span>
+        </div>
+
+        <!-- ========== QUESTIONS CONTAINER ========== -->
+        <div id="questionsContainer"></div>
+
+        <!-- ========== ACTIONS ========== -->
+        <div class="actions">
+            <button class="btn btn-primary" id="submitBtn">? Submit &amp; Score</button>
+            <button class="btn btn-secondary" id="resetBtn">?? Reset</button>
+        </div>
+
+        <!-- ========== RESULTS ========== -->
+        <div class="results-box" id="resultsBox">
+            <div class="score" id="scoreDisplay">0 / 20</div>
+            <div class="detail" id="resultDetail">Click <strong>Submit</strong> to check your answers.</div>
+        </div>
+
+    </div>
+
+    <script>
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+        //  QUIZ DATA ¨C 20 questions (insanely hard)
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+
+        const quizData = [{
+            id: 1,
+            type: 'mc',
+            question: 'An animal is discovered with radial symmetry, stinging cells, a central body cavity, and tissues but NO organs. To which phylum does it belong?',
+            options: ['Porifera (Sponges)', 'Cnidaria', 'Mollusca', 'Echinodermata'],
+            correct: 1
+        }, {
+            id: 2,
+            type: 'mc',
+            question: 'Animal X has a bony endoskeleton, a four-chambered heart, and produces milk. Animal Y has a cartilaginous skeleton, a two-chambered heart, and gills. Which is MOST accurate?',
+            options: [
+                'X = amphibian, Y = bony fish',
+                'X = mammal, Y = cartilaginous fish',
+                'X = bird, Y = jawless fish',
+                'X = reptile, Y = amphibian'
+            ],
+            correct: 1
+        }, {
+            id: 3,
+            type: 'mc',
+            question: 'Which adaptation was MOST critical for vertebrates to colonize dry land?',
+            options: [
+                'A four-chambered heart',
+                'Lungs + scaly skin + water-conserving kidneys',
+                'An endoskeleton',
+                'Bilateral symmetry'
+            ],
+            correct: 1
+        }, {
+            id: 4,
+            type: 'mc',
+            question: 'Which animal is INCORRECTLY paired with its thermoregulation &amp; reproduction?',
+            options: [
+                'Eagle ¨C Endotherm; lays amniotic eggs',
+                'Sea turtle ¨C Ectotherm; lays amniotic eggs',
+                'Dolphin ¨C Endotherm; live birth',
+                'Salmon ¨C Ectotherm; live birth'
+            ],
+            correct: 3
+        }, {
+            id: 5,
+            type: 'mc',
+            question: 'A fish-like creature has a notochord, nerve cord, throat pouches, but NO backbone. It lives attached to rocks. How is it classified?',
+            options: [
+                'Vertebrate (has notochord)',
+                'Invertebrate chordate',
+                'Fish',
+                'Amphibian'
+            ],
+            correct: 1
+        }, {
+            id: 6,
+            type: 'mc',
+            question: 'Which is NOT a chordate characteristic at any life stage?',
+            options: [
+                'Notochord',
+                'Dorsal nerve cord',
+                'Throat pouches',
+                'Backbone made of vertebrae'
+            ],
+            correct: 3
+        }, {
+            id: 7,
+            type: 'mc',
+            question: 'An animal has bilateral symmetry, a segmented body, an exoskeleton, and jointed appendages. It belongs to which group?',
+            options: [
+                'Mollusk',
+                'Annelid (segmented worm)',
+                'Arthropod',
+                'Echinoderm'
+            ],
+            correct: 2
+        }, {
+            id: 8,
+            type: 'mc',
+            question: 'Which statement about endoskeletons and exoskeletons is TRUE?',
+            options: [
+                'Endoskeleton must be shed periodically',
+                'Exoskeleton grows continuously',
+                'Endoskeleton grows with the animal',
+                'Exoskeleton is made of bone'
+            ],
+            correct: 2
+        }, {
+            id: 9,
+            type: 'tf',
+            question: 'All animals with bilateral symmetry have a distinct head with specialized sense organs.',
+            correct: false
+        }, {
+            id: 10,
+            type: 'tf',
+            question: 'An endoskeleton must be shed periodically as the animal grows.',
+            correct: false
+        }, {
+            id: 11,
+            type: 'tf',
+            question: 'Marsupials develop inside the mother attached to a placenta until fully mature.',
+            correct: false
+        }, {
+            id: 12,
+            type: 'tf',
+            question: 'All invertebrates lack a backbone, but some invertebrates are chordates.',
+            correct: true
+        }, {
+            id: 13,
+            type: 'sa',
+            question: 'Explain how a desert iguana (ectotherm) and a kangaroo rat (endotherm) each regulate body temperature in extreme desert heat. Then give ONE behavioral adaptation for the iguana and ONE physical adaptation for the kangaroo rat.'
+        }, {
+            id: 14,
+            type: 'sa',
+            question: 'Explain why bilateral symmetry allows for more complex organ systems than radial symmetry. Connect your answer to movement, finding food, and sense organs.'
+        }, {
+            id: 15,
+            type: 'sa',
+            question: 'An animal is ectothermic, has dry scaly skin, lungs, tough-shelled eggs on land, a three-chambered heart, and water-conserving kidneys. What class is it? Then list the other four vertebrate classes and give ONE trait that makes each different from this animal.'
+        }, {
+            id: 16,
+            type: 'sa',
+            question: 'Compare and contrast the body plan of a mollusk (gastropod) with that of an arthropod (insect) in terms of: (a) support/defense, (b) movement, and (c) nervous system complexity.'
+        }, {
+            id: 17,
+            type: 'sa',
+            question: 'The statement "all vertebrates are chordates, but not all chordates are vertebrates" is true. Define both terms and give a specific example of an animal that is a chordate but NOT a vertebrate.'
+        }, {
+            id: 18,
+            type: 'sa',
+            question: 'The hagfish has a skull but no backbone. A student claims it is a vertebrate. Is the student correct? Explain using precise definitions from the textbook.'
+        }, {
+            id: 19,
+            type: 'sa',
+            question: 'Sea stars (echinoderms) are radially symmetrical as adults but have bilaterally symmetrical larvae. Explain why this is an advantage for each life stage.'
+        }, {
+            id: 20,
+            type: 'sa',
+            question: 'Birds and mammals are both endothermic vertebrates, but they have different adaptations for thermoregulation. Describe TWO specific adaptations for each group that help them maintain body temperature.'
+        }];
+
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+        //  RENDER
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+
+        const container = document.getElementById('questionsContainer');
+
+        function renderQuiz() {
+            let html = '';
+            quizData.forEach((q, idx) => {
+                const num = idx + 1;
+                html += `<div class="question-block" id="qBlock${num}">`;
+                html += `<div class="q-header">`;
+                html += `<span class="q-number">Q${num}</span>`;
+                if (q.type === 'mc') html += `<span class="q-type">Multiple Choice</span>`;
+                else if (q.type === 'tf') html += `<span class="q-type">True / False</span>`;
+                else html += `<span class="q-type">Short Answer</span>`;
+                html += `</div>`;
+                html += `<div class="q-text">${q.question}</div>`;
+
+                // ©¤©¤ MC ©¤©¤
+                if (q.type === 'mc') {
+                    html += `<div class="options" data-qid="${num}">`;
+                    q.options.forEach((opt, oi) => {
+                        const letter = String.fromCharCode(65 + oi);
+                        html += `
+                            <div class="option">
+                                <input type="radio" name="q${num}" value="${oi}" id="q${num}_${oi}" />
+                                <label for="q${num}_${oi}"><strong>${letter}.</strong> ${opt}</label>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                }
+
+                // ©¤©¤ TF ©¤©¤
+                if (q.type === 'tf') {
+                    html += `<div class="options tf-group" data-qid="${num}">`;
+                    html += `
+                        <div class="option"><input type="radio" name="q${num}" value="true" id="q${num}_true" /><label for="q${num}_true">? True</label></div>
+                        <div class="option"><input type="radio" name="q${num}" value="false" id="q${num}_false" /><label for="q${num}_false">? False</label></div>
+                    `;
+                    html += `</div>`;
+                }
+
+                // ©¤©¤ SA ©¤©¤
+                if (q.type === 'sa') {
+                    html += `<div class="short-answer"><textarea placeholder="Write your answer here¡­" id="sa${num}" data-qid="${num}"></textarea></div>`;
+                }
+
+                html += `</div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        renderQuiz();
+
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+        //  SCORING
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+
+        function getSelectedRadio(name) {
+            const el = document.querySelector(`input[name="${name}"]:checked`);
+            return el ? el.value : null;
+        }
+
+        function getTextarea(id) {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : '';
+        }
+
+        function gradeShortAnswer(userAnswer, qNum) {
+            // Simple keyword-based grading for "insanely hard" ¨C gives partial credit if keywords appear.
+            const keywords = {
+                13: ['ectotherm', 'endotherm', 'behavioral', 'physical', 'adaptation'],
+                14: ['bilateral', 'radial', 'movement', 'sense', 'organs'],
+                15: ['reptile', 'fish', 'amphibian', 'bird', 'mammal'],
+                16: ['mollusk', 'gastropod', 'arthropod', 'exoskeleton', 'shell', 'jointed', 'foot'],
+                17: ['chordate', 'vertebrate', 'backbone', 'notochord', 'sea squirt', 'lancelet'],
+                18: ['hagfish', 'skull', 'backbone', 'notochord', 'invertebrate chordate'],
+                19: ['radial', 'bilateral', 'larvae', 'adult', 'echinoderm'],
+                20: ['birds', 'mammals', 'feathers', 'fur', 'sweat', 'insulation']
+            };
+            const words = keywords[qNum] || ['science'];
+            let score = 0;
+            const lower = userAnswer.toLowerCase();
+            for (const w of words) {
+                if (lower.includes(w.toLowerCase())) score += 1;
+            }
+            // Max 3 points per SA, but we'll cap at 1 for this scoring (just pass/fail style)
+            return score >= 2 ? 1 : 0;
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            let total = 0;
+            let maxScore = quizData.length;
+
+            quizData.forEach((q, idx) => {
+                const num = idx + 1;
+                const block = document.getElementById(`qBlock${num}`);
+                block.classList.remove('correct-highlight', 'wrong-highlight');
+
+                let isCorrect = false;
+
+                if (q.type === 'mc' || q.type === 'tf') {
+                    const val = getSelectedRadio(`q${num}`);
+                    if (val !== null) {
+                        const userVal = (q.type === 'tf') ? (val === 'true') : parseInt(val, 10);
+                        isCorrect = (userVal === q.correct);
+                    }
+                } else if (q.type === 'sa') {
+                    const answer = getTextarea(`sa${num}`);
+                    if (answer.length > 0) {
+                        isCorrect = (gradeShortAnswer(answer, num) === 1);
+                    }
+                }
+
+                if (isCorrect) {
+                    total += 1;
+                    block.classList.add('correct-highlight');
+                } else {
+                    block.classList.add('wrong-highlight');
+                }
+            });
+
+            // ©¤©¤ show results ©¤©¤
+            const box = document.getElementById('resultsBox');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const detail = document.getElementById('resultDetail');
+
+            scoreDisplay.textContent = `${total} / ${maxScore}`;
+            const pct = Math.round((total / maxScore) * 100);
+            let msg = '';
+            if (pct >= 90) msg = '?? Mastery! You crushed it!';
+            else if (pct >= 75) msg = '?? Excellent! You really know your stuff.';
+            else if (pct >= 60) msg = '?? Solid work, but review the tricky ones.';
+            else if (pct >= 40) msg = '?? Good effort! Re-read Chapters 4.1¨C4.5.';
+            else msg = '?? Time to hit the books again. You\'ve got this!';
+
+            detail.innerHTML = `${msg}  ¡¤  <span>${total}</span> correct out of <span>${maxScore}</span>`;
+
+            box.classList.add('show');
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+        //  RESET
+        // ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥
+
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            // Clear all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+            // Clear all textareas
+            document.querySelectorAll('textarea').forEach(el => el.value = '');
+            // Remove highlights
+            document.querySelectorAll('.question-block').forEach(el => {
+                el.classList.remove('correct-highlight', 'wrong-highlight');
+            });
+            // Hide results
+            document.getElementById('resultsBox').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
